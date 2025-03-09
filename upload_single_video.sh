@@ -1,8 +1,10 @@
 #!/bin/bash
 
-# activate the virtual environment
-source /home/sunild/python_venvs/yt_v3_api/bin/activate
-#!/bin/bash
+# Get the directory where this script is located
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Activate conda environment
+conda activate yt_v3
 
 # enable autocomplete
 if [ -f /etc/bash_completion ]; then
@@ -37,8 +39,8 @@ else
     privacy_status="public"
 fi
 
-# call the python script with the user's input
-python upload.py --file "$file_path" --title "$title" --description "$description" --keywords "$keywords" --privacyStatus "$privacy_status"
+# Use the Python interpreter from the conda environment to run the upload.py script
+python "upload.py" --file "$file_path" --title "$title" --description "$description" --keywords "$keywords" --privacyStatus "$privacy_status"
 
-# deactivate the virtual environment
-deactivate
+# Deactivate conda environment
+conda deactivate
